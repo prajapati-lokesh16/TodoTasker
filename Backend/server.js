@@ -58,7 +58,7 @@ const Authenticator = async (req, res, next) => {
         res.cookie('jwtToken','', {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'Strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             path:'/',
             maxAge:0
         });
@@ -112,7 +112,7 @@ app.post("/login",authLimiter, async (req, res, next) => {
             res.cookie("jwtToken", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
-                sameSite: 'Strict',
+                sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
                 maxAge: 3600000
             });
             return res.status(200).json({ success: true, message: "Login successful" });
@@ -205,7 +205,7 @@ app.post('/logout', Authenticator, async (req, res) => {
         const cookieoptions = {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'Strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             path: '/',
             expires: new Date(0),
             maxAge: 0  
