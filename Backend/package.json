@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "server": "nodemon server"
+    "server": "node server"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
